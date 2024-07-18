@@ -40,13 +40,13 @@ public class User implements UserDetails {
     @Column(name = "year_of_birth")
     private Integer yearOfBirth;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> role;
 
-    public User () {
+    public User() {
 
     }
 
@@ -130,7 +130,7 @@ public class User implements UserDetails {
         return role;
     }
 
-        public String getNameRole() {
+    public String getNameRole() {
         StringBuilder myStr = new StringBuilder();
 
         for (Role role : role) {
