@@ -65,8 +65,6 @@ public class UsersController {
         }
         user.setRole(roles);
         return user;
-//        userService.add(user);
-//        return "redirect:/admin";
     }
 
     @GetMapping("/admin/edit")
