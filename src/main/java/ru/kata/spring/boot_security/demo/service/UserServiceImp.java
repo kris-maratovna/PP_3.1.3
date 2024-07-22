@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.model.Role;
@@ -42,7 +43,15 @@ public class UserServiceImp implements UserService {
     @Transactional
     @Override
     public void edit(User user) {
-        usersRepository.save(user);
+        String password = user.getPassword();
+        String encode = passwordEncoder.encode(password);
+        var currentPassword = usersRepository.findById(user.getId()).get().getPassword();
+        if (password.equals(currentPassword)) {
+            usersRepository.save(user);
+        } else {
+            user.setPassword(encode);
+            usersRepository.save(user);
+        }
     }
     @Transactional
     @Override

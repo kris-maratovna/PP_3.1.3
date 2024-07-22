@@ -78,7 +78,7 @@ public class UsersController {
         }
     }
 
-    @PostMapping("/admin/edit")
+    @PatchMapping("/admin/edit")
     public String editUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
                            @RequestParam(value = "roleAdmin", required = false) String roleAdmin,
                            @RequestParam(value = "roleUser", required = false) String roleUser) {

@@ -8,7 +8,7 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-<form th:method="POST" autocomplete="on" th:action="@{/admin/edit}" th:object="${user}">
+<form th:method="PATCH" autocomplete="on" th:action="@{/admin/edit}" th:object="${user}">
     <div class="mb-3">
         <input name="id" th:field="*{id}" th:value="${user.id}" hidden="hidden">
         <label for="username" class="form-label">Username</label>
