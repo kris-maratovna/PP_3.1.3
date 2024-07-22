@@ -7,6 +7,7 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repositories.UsersRepository;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,7 @@ public class UserServiceImp implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Transactional
     @Override
     public void add(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -37,10 +39,12 @@ public class UserServiceImp implements UserService {
     public Optional<User> findById(Long id) {
         return usersRepository.findById(id);
     }
+    @Transactional
     @Override
     public void edit(User user) {
         usersRepository.save(user);
     }
+    @Transactional
     @Override
     public void delete(Long id) {
         usersRepository.deleteById(id);

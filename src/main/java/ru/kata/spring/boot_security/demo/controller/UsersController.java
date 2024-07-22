@@ -49,9 +49,11 @@ public class UsersController {
             return "admin/addUser";
         }
 
-        return addRoleToSet(user, roleAdmin, roleUser);
+        userService.add(addRoleToSet(user, roleAdmin, roleUser));
+        return "redirect:/admin";
+
     }
-    private String addRoleToSet(@ModelAttribute("user") User user,
+    private User addRoleToSet(@ModelAttribute("user") User user,
                                 @RequestParam(required = false) String roleAdmin,
                                 @RequestParam(required = false) String roleUser) {
         Set<Role> roles = new HashSet<>();
@@ -62,8 +64,9 @@ public class UsersController {
             roles.add(roleService.getRoleByName("ROLE_USER"));
         }
         user.setRole(roles);
-        userService.add(user);
-        return "redirect:/admin";
+        return user;
+//        userService.add(user);
+//        return "redirect:/admin";
     }
 
     @GetMapping("/admin/edit")
@@ -84,7 +87,8 @@ public class UsersController {
         if (bindingResult.hasErrors()) {
             return "admin/editUser";
         }
-        return addRoleToSet(user, roleAdmin, roleUser);
+        userService.edit(addRoleToSet(user, roleAdmin, roleUser));
+        return "redirect:/admin";
     }
     @PostMapping("/admin/delete")
     public String deleteUser(@RequestParam("id") Long id) {
